@@ -8,4 +8,6 @@ public interface ICommandConsumer {
     void sendUploadRequestAck(byte[] bytes, int length, InetAddress inetAddress, int port);
 
     void sendUploadingAck(byte[] bytes, int length, InetAddress inetAddress, int port);
+
+    void sendReloadAvailableFiles(byte[] bytes, int length, InetAddress inetAddress, int port);
 }

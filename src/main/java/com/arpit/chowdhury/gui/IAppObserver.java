@@ -8,8 +8,7 @@ package com.arpit.chowdhury.gui;
  * @author palma
  */
 public interface IAppObserver {
-    void updateAvailableFiles(String[] files);
-
+    void updateAvailableFiles(String files, int index, boolean clean);
     void updateDownloadStatus(int ok, String file);
 
 

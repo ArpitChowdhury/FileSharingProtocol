@@ -17,6 +17,7 @@ public class ReceiverProtocolManager implements IDataConsumer {
         byte command = bytes[0];
         switch (command) {
             case 1 -> commandConsumer.sendDownload(bytes, length, inetAddress, port);
+            case 2 -> commandConsumer.sendReloadAvailableFiles(bytes, length, inetAddress, port);
             case 3 -> commandConsumer.sendUploadRequestAck(bytes, length, inetAddress, port);
             case 4 -> commandConsumer.sendUploadingAck(bytes, length, inetAddress, port);
         }

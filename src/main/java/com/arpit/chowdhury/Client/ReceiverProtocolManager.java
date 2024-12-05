@@ -6,7 +6,7 @@ import java.net.InetAddress;
 import java.nio.ByteBuffer;
 
 public class ReceiverProtocolManager implements IDataConsumer {
-    private ICommandConsumer commandConsumer;
+    private final ICommandConsumer commandConsumer;
 
 
     public ReceiverProtocolManager(ICommandConsumer commandConsumer) {
@@ -14,13 +14,12 @@ public class ReceiverProtocolManager implements IDataConsumer {
     }
 
     @Override
-    public void consumeData(byte[] bytes, int i, InetAddress inetAddress, int i1) {
+    public void consumeData(byte[] bytes, int length, InetAddress inetAddress, int port) {
         byte command = bytes[0];
-        ByteBuffer buffer = ByteBuffer.wrap(bytes);
-        buffer.position(1);
 
         switch (command) {
-            case 3 -> commandConsumer.uploadFile(bytes, i, inetAddress, i1);
+            case 2 -> commandConsumer.updateAvailableFiles(bytes, length, inetAddress, port);
+            case 3 -> commandConsumer.uploadFile(bytes, length, inetAddress, port);
         }
     }
 }

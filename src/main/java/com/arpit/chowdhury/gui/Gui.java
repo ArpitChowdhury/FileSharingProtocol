@@ -1,8 +1,6 @@
 package com.arpit.chowdhury.gui;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 public class Gui extends JFrame implements IAppObserver {
@@ -41,9 +39,11 @@ public class Gui extends JFrame implements IAppObserver {
     }
 
     @Override
-    public void updateAvailableFiles(String[] files) {
-        filesModel.addAll(List.of(files));
+    public void updateAvailableFiles(String file, int index, boolean clean) {
+        if (clean) filesModel.removeAllElements();
+        filesModel.add(index, file);
     }
+
 
     @Override
     public void updateDownloadStatus(int ok, String file) {
@@ -56,7 +56,9 @@ public class Gui extends JFrame implements IAppObserver {
             case 2 -> downloadStatus.setText("Upload \"" + file + "\" Already Exists");
             case 3 -> downloadStatus.setText("Upload \" " + file + "\" Not Found");
             case 4 -> downloadStatus.setText("Upload \" " + file + "\" Failed: File Name Too Big");
-            case 5 -> downloadStatus.setText("Upload Ok");
+            case 5 -> downloadStatus.setText("Upload \" " + file + "\" Failed: File Too Big Aborting");
+            case 6 -> downloadStatus.setText("Uploading...");
+            case 7 -> downloadStatus.setText("Upload Ok");
             default -> downloadStatus.setText("Download Failed");
         }
     }
